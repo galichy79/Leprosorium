@@ -16,13 +16,25 @@ before do
 end
 
 configure do 
+  # инициализация БД
   init_db
+
+  # создает таблицу если таблица не существует
   @db.execute 'CREATE TABLE IF NOT EXISTS "Posts" (
     "id"	INTEGER,
     "created_date"	DATE,
     "content"	TEXT,
     PRIMARY KEY("id" AUTOINCREMENT)
   );'
+
+   # создает таблицу если таблица не существует
+   @db.execute 'CREATE TABLE IF NOT EXISTS Comments (
+    "id"	INTEGER,
+    "created_date"	DATE,
+    "content"	TEXT,
+    post_id integer,
+    PRIMARY KEY("id" AUTOINCREMENT)
+  )'
 end
 
 get '/' do 
